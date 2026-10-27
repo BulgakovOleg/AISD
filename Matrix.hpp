@@ -1,4 +1,7 @@
 
+
+#include <iostream>
+#include <random>
 #include <random>
 #include <stdexcept>
 
@@ -176,6 +179,18 @@ public:
         }
         return total_sum;
     }
+
+    friend std::ostream& operator<<(std::ostream& os, const Matrix& matrix) {
+        for (size_t i = 0; i < matrix.rows_; ++i) {
+            for (size_t j = 0; j < matrix.cols_; ++j) {
+                os << matrix(i, j) << "\t";
+            }
+            os << "\n";
+        }
+        return os;
+    }
+};
+
 
 
 
