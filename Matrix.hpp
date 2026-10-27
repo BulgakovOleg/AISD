@@ -6,6 +6,22 @@
 #include <random>
 #include <stdexcept>
 
+
+template <typename T>
+struct RandomGenerator {
+    static T generate(T min_val, T max_val, std::mt19937& gen) {
+        if constexpr (std::is_integral_v<T>) {
+            std::uniform_int_distribution<T> dist(min_val, max_val);
+            return dist(gen);
+        } else {
+            std::uniform_real_distribution<T> dist(min_val, max_val);
+            return dist(gen);
+        }
+    }
+};
+
+
+
 template <typename T>
 class Matrix {
 private:
