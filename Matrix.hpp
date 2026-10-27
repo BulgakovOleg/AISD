@@ -36,6 +36,9 @@ public:
         delete[] data_;
     }
 
+    size_t get_rows() const { return rows_; }
+    size_t get_cols() const { return cols_; }
+
     Matrix(const Matrix& other) 
         : rows_(other.rows_), cols_(other.cols_), data_(new T[other.rows_ * other.cols_]) {
         for (size_t i = 0; i < rows_ * cols_; ++i) {
@@ -43,6 +46,19 @@ public:
         }
     }
 
-    size_t get_rows() const { return rows_; }
-    size_t get_cols() const { return cols_; }
+    Matrix& operator=(const Matrix& other) {
+        if (this != &other) {
+            T* new_data = new T[other.rows_ * other.cols_];
+            for (size_t i = 0; i < other.rows_ * other.cols_; ++i) {
+                new_data[i] = other.data_[i];
+            }
+            delete[] data_;
+            data_ = new_data;
+            rows_ = other.rows_;
+            cols_ = other.cols_;
+        }
+        return *this;
+    }
+
+    
 
