@@ -1,3 +1,7 @@
+
+#include <random>
+#include <stdexcept>
+
 template <typename T>
 class Matrix {
 private:
@@ -5,6 +9,8 @@ private:
     size_t cols_;
     T* data_;
 public:
+
+    static constexpr double kEps = 1e-6;
 
     Matrix(size_t rows, size_t cols, const T& fill_value = T()) 
         : rows_(rows), cols_(cols), data_(nullptr) {
@@ -127,6 +133,24 @@ public:
             }
         }
         return result;
+    }
+
+    bool operator==(const Matrix& other) const {
+        if (rows_ != other.rows_ || cols_ != other.cols_) {
+            return false;
+        }
+        for (size_t i = 0; i < rows_; ++i) {
+            for (size_t j = 0; j < cols_; ++j) {
+                if (!are_elements_equal((*this)(i, j), other(i, j), kEps)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    bool operator!=(const Matrix& other) const {
+        return !(*this == other);
     }
 
 
