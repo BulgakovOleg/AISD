@@ -5,6 +5,7 @@ private:
     size_t cols_;
     T* data_;
 public:
+
     Matrix(size_t rows, size_t cols, const T& fill_value = T()) 
         : rows_(rows), cols_(cols), data_(nullptr) {
         if (rows_ == 0 || cols_ == 0) {
@@ -31,9 +32,14 @@ public:
         }
     }
 
-
-
     ~Matrix() {
         delete[] data_;
+    }
+
+    Matrix(const Matrix& other) 
+        : rows_(other.rows_), cols_(other.cols_), data_(new T[other.rows_ * other.cols_]) {
+        for (size_t i = 0; i < rows_ * cols_; ++i) {
+            data_[i] = other.data_[i];
+        }
     }
     
