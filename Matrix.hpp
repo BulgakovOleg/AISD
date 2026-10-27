@@ -100,6 +100,35 @@ public:
         return result;
     }
 
+    Matrix operator*(const T& scalar) const {
+        Matrix result(rows_, cols_);
+        for (size_t i = 0; i < rows_; ++i) {
+            for (size_t j = 0; j < cols_; ++j) {
+                result(i, j) = (*this)(i, j) * scalar;
+            }
+        }
+        return result;
+    }
+
+    friend Matrix operator*(const T& scalar, const Matrix& matrix) {
+        return matrix * scalar;
+    }
+
+     Matrix operator*(const Matrix& other) const {
+        if (cols_ != other.rows_) {
+            throw std::invalid_argument("Matrix dimensions mismatch for multiplication.");
+        }
+        Matrix result(rows_, other.cols_, T(0));
+        for (size_t i = 0; i < rows_; ++i) {
+            for (size_t k = 0; k < cols_; ++k) {
+                for (size_t j = 0; j < other.cols_; ++j) {
+                    result(i, j) += (*this)(i, k) * other(k, j);
+                }
+            }
+        }
+        return result;
+    }
+
 
 
     
