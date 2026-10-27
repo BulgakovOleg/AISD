@@ -74,6 +74,32 @@ public:
         return data_[r * cols_ + c];
     }
 
+    Matrix operator+(const Matrix& other) const {
+        if (rows_ != other.rows_ || cols_ != other.cols_) {
+            throw std::invalid_argument("Matrix dimensions must match for addition.");
+        }
+        Matrix result(rows_, cols_);
+        for (size_t i = 0; i < rows_; ++i) {
+            for (size_t j = 0; j < cols_; ++j) {
+                result(i, j) = (*this)(i, j) + other(i, j);
+            }
+        }
+        return result;
+    }
+
+    Matrix operator-(const Matrix& other) const {
+        if (rows_ != other.rows_ || cols_ != other.cols_) {
+            throw std::invalid_argument("Matrix dimensions must match for subtraction.");
+        }
+        Matrix result(rows_, cols_);
+        for (size_t i = 0; i < rows_; ++i) {
+            for (size_t j = 0; j < cols_; ++j) {
+                result(i, j) = (*this)(i, j) - other(i, j);
+            }
+        }
+        return result;
+    }
+
 
 
     
