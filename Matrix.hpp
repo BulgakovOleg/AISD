@@ -42,4 +42,7 @@ public:
             data_[i] = other.data_[i];
         }
     }
-    
+
+    size_t get_rows() const { return rows_; }
+    size_t get_cols() const { return cols_; }
+
