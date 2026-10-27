@@ -166,6 +166,17 @@ public:
         return !(*this == other);
     }
 
+    T calculate_trace() const {
+        if (rows_ != cols_) {
+            throw std::logic_error("Trace can only be calculated for square matrices.");
+        }
+        T total_sum = T(0);
+        for (size_t i = 0; i < rows_; ++i) {
+            total_sum += (*this)(i, i);
+        }
+        return total_sum;
+    }
+
 
 
     
