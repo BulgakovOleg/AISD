@@ -1,10 +1,12 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
-
 #include <iostream>
 #include <random>
 #include <stdexcept>
+#include <cmath>
+#include <complex>
+#include <type_traits>
 
 
 template <typename T>
@@ -20,6 +22,40 @@ struct RandomGenerator {
     }
 };
 
+
+template <typename T>
+struct RandomGenerator<std::complex<T>> {
+    static std::complex<T> generate(std::complex<T> min_val, std::complex<T> max_val, std::mt19937& gen) {
+        if constexpr (std::is_integral_v<T>) {
+            std::uniform_int_distribution<T> dist_real(min_val.real(), max_val.real());
+            std::uniform_int_distribution<T> dist_imag(min_val.imag(), max_val.imag());
+            return std::complex<T>(dist_real(gen), dist_imag(gen));
+        } else {
+            std::uniform_real_distribution<T> dist_real(min_val.real(), max_val.real());
+            std::uniform_real_distribution<T> dist_imag(min_val.imag(), max_val.imag());
+            return std::complex<T>(dist_real(gen), dist_imag(gen));
+        }
+    }
+};
+
+template <typename T>
+bool are_elements_equal(const T& a, const T& b, double eps) {
+    if constexpr (std::is_floating_point_v<T>) {
+        return std::abs(a - b) < eps;
+    } else {
+        return a == b;
+    }
+}
+
+
+template <typename T>
+bool are_elements_equal(const std::complex<T>& a, const std::complex<T>& b, double eps) {
+    if constexpr (std::is_floating_point_v<T>) {
+        return std::abs(a.real() - b.real()) < eps && std::abs(a.imag() - b.imag()) < eps;
+    } else {
+        return a == b;
+    }
+}
 
 
 template <typename T>
