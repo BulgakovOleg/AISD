@@ -1,5 +1,6 @@
 #include "matrix.hpp"
-
+#include <iostream>
+#include <string>
 
 template <typename T>
 T calculate_determinant_3x3(const Matrix<T>& matrix) {
@@ -41,4 +42,38 @@ Matrix<T> solve_system_3x3(const Matrix<T>& a_matrix, const Matrix<T>& b_vector)
     x_result(2, 0) = calculate_determinant_3x3(a_z) / det_a;
 
     return x_result;
+}
+
+template <typename T>
+void demonstrate_all_operations(const T& min_val, const T& max_val) {
+    const T fill_value = T(2);
+    const T scalar = T(2);
+    const T written_value = T(7);
+
+    Matrix<T> random_matrix(3, 3, min_val, max_val);
+    Matrix<T> other_matrix(3, 3, min_val, max_val);
+    Matrix<T> filled_matrix(3, 3, fill_value);
+
+    filled_matrix(0, 1) = written_value;
+
+    Matrix<T> copied_matrix(random_matrix);
+    Matrix<T> assigned_matrix(1, 1);
+    assigned_matrix = random_matrix;
+    
+    std::cout << "Random matrix (" << random_matrix.get_rows()
+              << "x" << random_matrix.get_cols() << "):\n" << random_matrix;
+    std::cout << "Filled matrix after writing A(0, 1) via operator():\n" << filled_matrix;
+    std::cout << "Copied matrix:\n" << copied_matrix;
+    std::cout << "Assigned matrix:\n" << assigned_matrix;
+    std::cout << "Addition:\n" << (random_matrix + other_matrix);
+    std::cout << "Subtraction:\n" << (random_matrix - other_matrix);
+    std::cout << "Matrix multiplication:\n" << (random_matrix * other_matrix);
+    std::cout << "Matrix * scalar:\n" << (random_matrix * scalar);
+    std::cout << "Scalar * matrix:\n" << (scalar * random_matrix);
+    std::cout << "Matrix / scalar:\n" << (random_matrix / scalar);
+    std::cout << "Trace: " << random_matrix.calculate_trace() << "\n";
+    std::cout << std::boolalpha;
+    std::cout << "Copied equals original: " << (copied_matrix == random_matrix) << "\n";
+    std::cout << "Assigned equals original: " << (assigned_matrix == random_matrix) << "\n";
+    std::cout << "Random differs from other: " << (random_matrix != other_matrix) << "\n";
 }
