@@ -60,20 +60,22 @@ void demonstrate_all_operations(const T& min_val, const T& max_val) {
     Matrix<T> assigned_matrix(1, 1);
     assigned_matrix = random_matrix;
     
-    std::cout << "Random matrix (" << random_matrix.get_rows()
+    std::cout << "Matrix A (" << random_matrix.get_rows()
               << "x" << random_matrix.get_cols() << "):\n" << random_matrix;
-    std::cout << "Filled matrix after writing A(0, 1) via operator():\n" << filled_matrix;
-    std::cout << "Copied matrix:\n" << copied_matrix;
-    std::cout << "Assigned matrix:\n" << assigned_matrix;
-    std::cout << "Addition:\n" << (random_matrix + other_matrix);
-    std::cout << "Subtraction:\n" << (random_matrix - other_matrix);
-    std::cout << "Matrix multiplication:\n" << (random_matrix * other_matrix);
-    std::cout << "Matrix * scalar:\n" << (random_matrix * scalar);
-    std::cout << "Scalar * matrix:\n" << (scalar * random_matrix);
-    std::cout << "Matrix / scalar:\n" << (random_matrix / scalar);
-    std::cout << "Trace: " << random_matrix.calculate_trace() << "\n";
+    std::cout << "Matrix B (" << other_matrix.get_rows()
+              << "x" << other_matrix.get_cols() << "):\n" << other_matrix;
+    std::cout << "Filled matrix:\n" << filled_matrix;
+    std::cout << "Copy of A:\n" << copied_matrix;
+    std::cout << "Assigned from A:\n" << assigned_matrix;
+    std::cout << "A + B:\n" << (random_matrix + other_matrix);
+    std::cout << "A - B:\n" << (random_matrix - other_matrix);
+    std::cout << "A * B:\n" << (random_matrix * other_matrix);
+    std::cout << "A * 2:\n" << (random_matrix * scalar);
+    std::cout << "2 * A:\n" << (scalar * random_matrix);
+    std::cout << "A / 2:\n" << (random_matrix / scalar);
+    std::cout << "Trace of A: " << random_matrix.calculate_trace() << "\n";
     std::cout << std::boolalpha;
-    std::cout << "Copied equals original: " << (copied_matrix == random_matrix) << "\n";
-    std::cout << "Assigned equals original: " << (assigned_matrix == random_matrix) << "\n";
-    std::cout << "Random differs from other: " << (random_matrix != other_matrix) << "\n";
+    std::cout << "Copy equals A: " << (copied_matrix == random_matrix) << "\n";
+    std::cout << "Assigned equals A: " << (assigned_matrix == random_matrix) << "\n";
+    std::cout << "A != B: " << (random_matrix != other_matrix) << "\n";
 }
