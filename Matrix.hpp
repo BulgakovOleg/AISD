@@ -64,13 +64,12 @@ private:
     std::size_t cols_;
     T* data_;
 
-     void fill_with(const T& value) {
+    void fill_with(const T& value) {
         for (std::size_t i = 0; i < rows_ * cols_; ++i) {
             data_[i] = value;
         }
     }
 public:
-
     static constexpr double kEps = 1e-5;
 
     Matrix(std::size_t rows, std::size_t cols, const T& fill_value = T()) 
@@ -80,7 +79,6 @@ public:
         }
         data_ = new T[rows_ * cols_];
         fill_with(fill_value);
-        }
     }
 
     Matrix(std::size_t rows, std::size_t cols, const T& min_val, const T& max_val) 
