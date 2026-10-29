@@ -3,6 +3,7 @@
 #include <string>
 #include <complex>
 #include <stdexcept>
+#include <type_traits>
 
 template <typename T>
 T calculate_determinant_3x3(const Matrix<T>& matrix) {
